@@ -58,12 +58,19 @@ Read this whole file before doing anything.
 - Space posts ~2+ hours; avoid 00:00–09:00 Morocco. Instagram flagged the account for **unoriginal content** after many near-identical clipped posts — prefer original/transformed content, fewer similar posts per day.
 
 ## Repo layout
-- `warmup/` — warm-up batch 03 (GTA 6 stream): `clipNN_a.mp4` (split), `clipNN_b.mp4` (normal), NN = 01–11.
-- `tools/` — the scripts above. Whisper model: faster-whisper large-v3 (int8, CPU); set `HF_HUB_DISABLE_XET=1`.
-  Fonts: Vazirmatn (Arabic), NotoColorEmoji. Python: faster-whisper, pillow (raqm), opencv-python-headless<5, numpy.
+- Branch `claude/affectionate-hawking-iom3sr` (raw links use this branch path until merged to main).
+- `abofalah/` warm-up (horror reaction, facecam box): clip01–14. 10 split (cam top / film bottom), 4 wide (frame on black, hook above).
+- `bandareta/` warm-up (Saudi horror-comedy film, no facecam): clip01–20, 4:5 face-tracked crop or wide frame, hook above the whole clip. No captions on warm-up.
+- `ep2/` campaign (TM فيصل × فهد سال podcast): split, podcast top / Bashar gameplay bottom, hook 4.5 s, captions. clip01–27 (no 16).
+- `ep3/` campaign (MW4 challenge, 4K): 01–03,08,09 facecam-top split; 04,05,10–13 podcast/studio top + EP3 gameplay bottom. Many EP3 moments were already posted earlier — check Buffer history before reusing.
+- `ep1/` campaign (أوسمز podcast, 4K): split + Bashar gameplay + captions. Already-posted EP1 topics (skip): grocery street closed, London exam 20/20, mom & America, Joy Award, 8 months no income, university no friends, Saudi clubs goalkeeper offer, "people are مصالح", name meaning, closest YouTuber.
+- `tools/`: `render_ep.py` (podcast + gameplay split, shot-aware, captions, `gright` = gameplay right edge), `render_box.py` (fixed facecam box layouts), `render_film.py` (film layouts, pre-roll trim for sources that show black after a seek), `clipcaps.py` (large-v3 word-timed captions per clip; fix text by hand after), `hookimg.py` (colours: bw/wb/by/yb).
+- Bashar gameplay is mostly dark in its campaign part; use bright windows only (brightness map) and vary zoom/crop per clip.
+- Whisper model: faster-whisper large-v3 (captions) / large-v3-turbo (full-source scan), int8 CPU; set `HF_HUB_DISABLE_XET=1`.
+  Fonts: Vazirmatn (install from npm `vazirmatn` if missing), NotoColorEmoji. Python: faster-whisper, pillow (raqm), opencv-python-headless<5, numpy.
+- Buffer: list past posts with GraphQL `posts(input:{organizationId:"6afac0182fbcba384e4540d0", filter:{channelIds:[...], status:[sent]}})`; delete with `deletePost(input:{id})`.
 
 ## Posting history (as of 2026-11-20)
-- Campaign EP1 (Awesomes podcast, split screen): clips 01–08 posted. Files deleted from GitHub.
-- Campaign EP3 challenge (MW4 facecam): clips 21–26 posted; 27–30 cancelled (not posted). Files deleted.
-- Old warm-up (Shonq suite vlog): clips 01 (deleted by owner), 03, 05 posted.
-- Warm-up batch 03 (GTA 6): `clip09_a` posted 2026-11-19 23:04 UTC. The other 21 are unposted.
+- Campaign EP1 (Osmz podcast) and EP3 challenge: many clips posted 2026-11-02…18 (see Buffer history). Old files deleted.
+- Old warm-up (Shonq suite vlog): 01, 03, 05 posted. Warm-up batch 03 (GTA 6): clip09_a posted; folder deleted 2026-11-20.
+- Scheduled 2026-11-20 (Morocco = UTC): 09:00 abofalah/clip07, 13:00 ep2/clip07, 18:00 bandareta/clip17 — each on TikTok + Instagram.
