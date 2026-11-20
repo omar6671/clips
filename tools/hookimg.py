@@ -24,7 +24,7 @@ def tokens(text):
     return out[:-1]
 
 
-def render(text, path, width=1080, max_w=940, size=68, pad_x=30, pad_y=14, radius=22, single=False):
+def render(text, path, width=1080, max_w=940, size=68, pad_x=30, pad_y=14, radius=22, single=False, fg=(0, 0, 0, 255), bg=(255, 255, 255, 255)):
     font = ImageFont.truetype(FONT, size, layout_engine=ImageFont.Layout.RAQM)
     efont = ImageFont.truetype(EMOJI, 109)
     esz = int(size * 1.05)
@@ -41,7 +41,7 @@ def render(text, path, width=1080, max_w=940, size=68, pad_x=30, pad_y=14, radiu
         d_ = "rtl" if re.search(r"[؀-ۿ]", s) else "ltr"
         w = int(font.getlength(s, direction=d_)) + 2
         im = Image.new("RGBA", (w, line_h), (0, 0, 0, 0))
-        ImageDraw.Draw(im).text((w, 0), s, font=font, fill=(0, 0, 0, 255), anchor="ra", direction=d_)
+        ImageDraw.Draw(im).text((w, 0), s, font=font, fill=fg, anchor="ra", direction=d_)
         return im
 
     # group tokens into words (text+emoji glued), then wrap greedily right-to-left
@@ -89,10 +89,10 @@ def render(text, path, width=1080, max_w=940, size=68, pad_x=30, pad_y=14, radiu
         y += row_h + gap
     if single:  # one solid block around all lines
         bx0 = min(b[0] for b in boxes); bx1 = max(b[2] for b in boxes)
-        d.rounded_rectangle((bx0, boxes[0][1], bx1, boxes[-1][3]), radius=radius, fill=(255, 255, 255, 255))
+        d.rounded_rectangle((bx0, boxes[0][1], bx1, boxes[-1][3]), radius=radius, fill=bg)
     else:
         for (x0, y0, x1, y1, _, _) in boxes:
-            d.rounded_rectangle((x0, y0, x1, y1), radius=radius, fill=(255, 255, 255, 255))
+            d.rounded_rectangle((x0, y0, x1, y1), radius=radius, fill=bg)
     for (x0, y0, x1, y1, ln, lw) in boxes:
         x = x1 - pad_x  # place words right-to-left
         for w in ln:
