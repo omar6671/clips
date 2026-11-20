@@ -30,14 +30,15 @@ def ts(t):
     return f"{int(h)}:{int(m):02d}:{s:05.2f}"
 
 
-def ass(caps, y, path):
+def ass(caps, y, path, yh=None):
     out = ["[Script Info]", "ScriptType: v4.00+", f"PlayResX: {W}", f"PlayResY: {H}", "WrapStyle: 2",
            "ScaledBorderAndShadow: yes", "", "[V4+ Styles]",
            "Format: Name, Fontname, Fontsize, PrimaryColour, SecondaryColour, OutlineColour, BackColour, Bold, Italic, Underline, StrikeOut, ScaleX, ScaleY, Spacing, Angle, BorderStyle, Outline, Shadow, Alignment, MarginL, MarginR, MarginV, Encoding",
-           "Style: Cap,Vazirmatn,66,&H00FFFFFF,&H00FFFFFF,&H00000000,&H80000000,1,0,0,0,100,100,0,0,1,3.5,1.5,5,60,60,0,1",
+           "Style: Cap,Vazirmatn,96,&H00FFFFFF,&H00FFFFFF,&H00000000,&H80000000,1,0,0,0,100,100,0,0,1,4.5,1.5,5,60,60,0,1",
            "", "[Events]", "Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text"]
     for a, b, t in caps:
-        out.append(f"Dialogue: 1,{ts(a)},{ts(b)},Cap,,0,0,0,,{{\\pos({W // 2},{y})}}{t}")
+        yy = yh if (yh and a < HOOK_SECS) else y
+        out.append(f"Dialogue: 1,{ts(a)},{ts(b)},Cap,,0,0,0,,{{\\pos({W // 2},{yy})}}{t}")
     open(path, "w", encoding="utf-8").write("\n".join(out) + "\n")
 
 
@@ -54,7 +55,7 @@ for c in json.load(open(cpath, encoding="utf-8")):
     gx, gy, gw, gh = c.get("game", L["game"])
     if style == "split":
         hook_y = HALF + 20 - hh // 2
-        cap_y = HALF + 20
+        cap_y = HALF
         fc = (f"[0:v]split[a][b];"
               f"[a]crop={cw}:{ch}:{cx}:{cy},scale={W}:{HALF}:flags=lanczos,cas=0.5,setsar=1[top];"
               f"[b]crop={gw}:{gh}:{gx}:{gy},scale={W}:{HALF}:flags=lanczos,setsar=1[bot];"
@@ -73,7 +74,7 @@ for c in json.load(open(cpath, encoding="utf-8")):
               f"[bg][vid]overlay=0:{vy}:shortest=1[st];[1:v]format=rgba[hk];"
               f"[st][hk]overlay=0:{hook_y}:format=auto[v1]")
     if c.get("caps"):
-        ass(c["caps"], cap_y, base + ".ass")
+        ass(c["caps"], cap_y, base + ".ass", (hook_y + hh + 70) if style == "split" else None)
         fc += f";[v1]subtitles={base}.ass:fontsdir=/usr/share/fonts/truetype/vazirmatn,format=yuv420p[v]"
     else:
         fc += ";[v1]format=yuv420p[v]"
