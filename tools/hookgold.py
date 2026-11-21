@@ -1,80 +1,68 @@
-"""Gold-gradient Arabic hook in quotes ("..."), heavy font, dark outline + soft shadow, no box. Max 2 lines ("|").
-render(text, path) -> (w, h)"""
+"""Yellow quoted Arabic hook (TikTok "classic" look): flat yellow Noto Sans Arabic Bold, thin dark outline + soft
+shadow, no box. The whole hook incl. emojis sits inside straight quotes. Max 2 lines ("|"), max width 800 px so the
+first/last word stays clear of the TikTok side buttons.  render(text, path) -> (w, h)
+Font: Noto Sans Arabic 700 (npm @fontsource/noto-sans-arabic, .woff) in /usr/share/fonts/truetype/notoarabic/."""
 import re
 from PIL import Image, ImageDraw, ImageFilter, ImageFont
 
-FONT = "/usr/share/fonts/truetype/vazirmatn/Vazirmatn-Black.ttf"
+FONT = "/usr/share/fonts/truetype/notoarabic/noto-sans-arabic-arabic-700-normal.woff"
+QFONT = "/usr/share/fonts/opentype/inter/Inter-Black.otf"
 EMOJI = "/usr/share/fonts/truetype/noto/NotoColorEmoji.ttf"
 EMO = re.compile(r"\s*([\U0001F000-\U0001FAFF☀-➿⬀-⯿][️‍\U0001F000-\U0001FAFF]*)\s*")
+YELLOW = (236, 204, 88, 255)
+EDGE = (25, 20, 10, 255)
 
 
-def render(text, path, width=1080, size=88, top=(255, 236, 140), bottom=(242, 176, 0)):
-    emojis = EMO.findall(text)
-    text = EMO.sub(" ", text).strip()
-    lines = [l.strip() for l in text.split("|")]
-    pad, stroke, qgap = 24, 3, 10
-    ne = len(emojis[:2])
-    while True:  # shrink until every line (with quotes and emoji) fits in 960 px
+def render(text, path, width=1080, size=76, max_w=800):
+    emojis = EMO.findall(text)[:2]
+    lines = [l.strip() for l in EMO.sub(" ", text).strip().split("|")]
+    stroke = 3
+    while True:
         font = ImageFont.truetype(FONT, size, layout_engine=ImageFont.Layout.RAQM)
-        qfont = font
-        esz = int(size * 0.95)
-        boxes = [font.getbbox(l, direction="rtl", stroke_width=stroke) for l in lines]
-        qw = int(qfont.getlength("\u201d")) + stroke * 2
-        def lwidth(i):
+        qfont = ImageFont.truetype(QFONT, int(size * 1.05))
+        esz = int(size * 0.9)
+        qw = int(qfont.getlength('"')) + 4
+        boxes = [font.getbbox(l, direction="rtl") for l in lines]
+        def lw(i):
             w = boxes[i][2] - boxes[i][0]
-            if i == 0: w += qw + qgap
-            if i == len(lines) - 1: w += qw + qgap + (ne * (esz + 6) + 6 if ne else 0)
+            if i == 0: w += qw + 8
+            if i == len(lines) - 1: w += qw + 8 + len(emojis) * (esz + 6)
             return w
-        if max(lwidth(i) for i in range(len(lines))) <= 960 or size <= 40: break
+        if max(lw(i) for i in range(len(lines))) <= max_w or size <= 40: break
         size -= 2
-    lh = max(b[3] - b[1] for b in boxes)
+    asc, desc = font.getmetrics()
+    lh = asc + desc
+    pad = 20
+    H = len(lines) * lh + 2 * pad
     W = width
-    H = len(lines) * (lh + 10) + 2 * pad
-    mask = Image.new("L", (W, H), 0); outline = Image.new("L", (W, H), 0)
-    md, od = ImageDraw.Draw(mask), ImageDraw.Draw(outline)
-    def put(x, y, s_, b):
-        od.text((x - b[0], y - b[1]), s_, font=font, fill=255, direction="rtl", stroke_width=stroke, stroke_fill=255)
-        md.text((x - b[0], y - b[1]), s_, font=font, fill=255, direction="rtl")
-    emo_at = None
+    txt = Image.new("RGBA", (W, H), (0, 0, 0, 0)); d = ImageDraw.Draw(txt)
+    emo_pos = []
     y = pad
-    for i, (l, b) in enumerate(zip(lines, boxes)):
-        right = (W + lwidth(i)) // 2          # lay pieces out from the right edge leftwards
-        if i == 0:
-            qb = font.getbbox("\u201d", stroke_width=stroke)
-            put(right - (qb[2] - qb[0]), y, "\u201d", (qb[0], b[1], qb[2], b[3])); right -= qw + qgap
-        put(right - (b[2] - b[0]), y, l, b); right -= (b[2] - b[0]) + qgap
+    for i, l in enumerate(lines):
+        right = (W + lw(i)) // 2
+        if i == 0:  # opening quote at the right (RTL start)
+            d.text((right - qw + 2, y + int(size * 0.12)), '"', font=qfont, fill=YELLOW, stroke_width=stroke, stroke_fill=EDGE)
+            right -= qw + 8
+        b = boxes[i]
+        d.text((right - (b[2] - b[0]) - b[0], y), l, font=font, fill=YELLOW, direction="rtl", stroke_width=stroke, stroke_fill=EDGE)
+        right -= (b[2] - b[0])
         if i == len(lines) - 1:
-            qb = font.getbbox("\u201c", stroke_width=stroke)
-            put(right - (qb[2] - qb[0]), y, "\u201c", (qb[0], b[1], qb[2], b[3])); right -= qw + 6
-            emo_at = (right, y)
-        y += lh + 10
-    grad = Image.new("RGBA", (W, H))
-    gd = ImageDraw.Draw(grad)
-    for yy in range(H):
-        # gradient per line height so each line goes light -> gold
-        t = ((yy - pad) % (lh + 10)) / max(lh, 1)
-        t = min(max(t, 0), 1)
-        gd.line([(0, yy), (W, yy)], fill=tuple(int(a + (b_ - a) * t) for a, b_ in zip(top, bottom)) + (255,))
+            for e in emojis:
+                right -= esz + 6; emo_pos.append((right, y + (lh - esz) // 2 + int(size * 0.08)))
+            right -= 8
+            d.text((right - qw + 2, y + int(size * 0.12)), '"', font=qfont, fill=YELLOW, stroke_width=stroke, stroke_fill=EDGE)
+        y += lh
+    efont = ImageFont.truetype(EMOJI, 109)
+    for e, (ex, ey) in zip(emojis, emo_pos):
+        im = Image.new("RGBA", (180, 180), (0, 0, 0, 0))
+        ImageDraw.Draw(im).text((10, 10), e, font=efont, embedded_color=True)
+        im = im.crop(im.getbbox() or (0, 0, 1, 1)); im = im.resize((esz, int(esz * im.height / im.width)), Image.LANCZOS)
+        txt.alpha_composite(im, (ex, ey))
     shadow = Image.new("RGBA", (W, H), (0, 0, 0, 0))
-    shadow.putalpha(outline.filter(ImageFilter.GaussianBlur(6)).point(lambda v: int(v * 0.7)))
+    shadow.putalpha(txt.getchannel("A").filter(ImageFilter.GaussianBlur(5)).point(lambda v: int(v * 0.55)))
     img = Image.new("RGBA", (W, H), (0, 0, 0, 0))
-    img.alpha_composite(shadow, (3, 4))
-    ol = Image.new("RGBA", (W, H), (40, 24, 0, 255)); ol.putalpha(outline)
-    img.alpha_composite(ol)
-    fill = grad.copy(); fill.putalpha(mask)
-    img.alpha_composite(fill)
-    if emojis:  # emoji(s) at the left end of the last line (RTL reading end)
-        efont = ImageFont.truetype(EMOJI, 109)
-        ex, y = emo_at
-        ex -= esz
-        for e in emojis[:2]:
-            im = Image.new("RGBA", (180, 180), (0, 0, 0, 0))
-            ImageDraw.Draw(im).text((10, 10), e, font=efont, embedded_color=True)
-            im = im.crop(im.getbbox() or (0, 0, 1, 1)); im = im.resize((esz, int(esz * im.height / im.width)), Image.LANCZOS)
-            img.alpha_composite(im, (ex, y + (lh - im.height) // 2))
-            ex -= esz + 4
-    bb = img.getbbox()
-    img = img.crop((0, bb[1], W, bb[3]))
+    img.alpha_composite(shadow, (2, 3)); img.alpha_composite(txt)
+    bb = img.getbbox(); img = img.crop((0, max(bb[1] - 4, 0), W, min(bb[3] + 4, H)))
     img.save(path)
     return img.size
 
