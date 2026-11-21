@@ -9,6 +9,7 @@ import json, os, re, subprocess, sys
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from framing import analyze
 from hookimg import render as render_hook
+from hookgold import render as render_gold
 
 pod, game, cpath, outdir = sys.argv[1:5]
 only = set(sys.argv[5:])
@@ -35,11 +36,11 @@ def dims(p):
     return map(int, o.strip().split(","))
 
 
-def write_ass(caps, hook_until, path, y_hook, y_after):
+def write_ass(caps, hook_until, path, y_hook, y_after, size=96):
     out = ["[Script Info]", "ScriptType: v4.00+", f"PlayResX: {W}", f"PlayResY: {H}", "WrapStyle: 2",
            "ScaledBorderAndShadow: yes", "", "[V4+ Styles]",
            "Format: Name, Fontname, Fontsize, PrimaryColour, SecondaryColour, OutlineColour, BackColour, Bold, Italic, Underline, StrikeOut, ScaleX, ScaleY, Spacing, Angle, BorderStyle, Outline, Shadow, Alignment, MarginL, MarginR, MarginV, Encoding",
-           "Style: Cap,Vazirmatn,96,&H00FFFFFF,&H00FFFFFF,&H00000000,&H80000000,1,0,0,0,100,100,0,0,1,4.5,1.5,5,60,60,0,1",
+           f"Style: Cap,Vazirmatn,{size},&H00FFFFFF,&H00FFFFFF,&H00000000,&H80000000,1,0,0,0,100,100,0,0,1,4.5,1.5,5,60,60,0,1",
            "", "[Events]", "Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text"]
     for a, b, t in caps:
         # a caption that starts under the hook stays there; later ones sit on the seam
@@ -77,8 +78,13 @@ for c in json.load(open(cpath, encoding="utf-8")):
     gy = int(min(max(top + c.get("gcy", 0.5) * uh - gch / 2, top), top + uh - gch)) // 2 * 2
 
     fg, bg = COL[c.get("color", "bw")]
-    hw, hh = render_hook(re.sub(EMO, "", c["hook"]), base + ".hook.png", size=60, max_w=900, single=True, fg=fg, bg=bg)
-    hook_y = HALF - 15 - hh            # hook block sits just above the seam
+    gold = c.get("hookstyle") == "gold"
+    if gold:   # gold quoted hook centred on the seam for the whole clip, captions just below it
+        hw, hh = render_gold(c["hook"], base + ".hook.png")
+        hook_y = HALF - hh // 2
+    else:
+        hw, hh = render_hook(re.sub(EMO, "", c["hook"]), base + ".hook.png", size=60, max_w=900, single=True, fg=fg, bg=bg)
+        hook_y = HALF - 15 - hh            # hook block sits just above the seam
     fits = [s for s in shots if s["mode"] == "fit"]
     fh = int(W * sh / sw) // 2 * 2
     if fits:   # wide shots: whole frame over a blurred fill instead of a cut-off crop
@@ -92,10 +98,15 @@ for c in json.load(open(cpath, encoding="utf-8")):
     fc = (topf +
           f"[1:v]fps=30,crop={gcw}:{gch}:{gx}:{gy},scale={W}:{HALF}:flags=lanczos,setsar=1[bot];"
           f"[top][bot]vstack[st];"
-          f"[2:v]format=rgba,fade=t=out:st={HOOK_SECS - 0.25}:d=0.25:alpha=1[hk];"
-          f"[st][hk]overlay=0:{hook_y}:enable='lt(t,{HOOK_SECS})':format=auto[v1]")
+          + ("[2:v]format=rgba[hk];[st][hk]overlay=0:" + str(hook_y) + ":format=auto[v1]" if gold else
+             f"[2:v]format=rgba,fade=t=out:st={HOOK_SECS - 0.25}:d=0.25:alpha=1[hk];"
+             f"[st][hk]overlay=0:{hook_y}:enable='lt(t,{HOOK_SECS})':format=auto[v1]"))
     if c.get("caps"):
-        write_ass(c["caps"], HOOK_SECS, base + ".ass", HALF + 95, HALF)
+        if gold:
+            cy = hook_y + hh + 55
+            write_ass(c["caps"], 0, base + ".ass", cy, cy, size=68)
+        else:
+            write_ass(c["caps"], HOOK_SECS, base + ".ass", HALF + 95, HALF)
         fc += f";[v1]subtitles={base}.ass:fontsdir=/usr/share/fonts/truetype/vazirmatn,format=yuv420p[v]"
     else:
         fc += ";[v1]format=yuv420p[v]"
