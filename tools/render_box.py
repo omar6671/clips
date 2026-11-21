@@ -11,6 +11,7 @@ wide : region zoomed on black, hook above it for the whole clip, captions below 
 import json, os, re, subprocess, sys
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from hookimg import render as render_hook
+from hookgold import render as render_gold
 
 src, lpath, cpath, outdir = sys.argv[1:5]
 only = set(sys.argv[5:])
@@ -30,11 +31,11 @@ def ts(t):
     return f"{int(h)}:{int(m):02d}:{s:05.2f}"
 
 
-def ass(caps, y, path, yh=None):
+def ass(caps, y, path, yh=None, size=96):
     out = ["[Script Info]", "ScriptType: v4.00+", f"PlayResX: {W}", f"PlayResY: {H}", "WrapStyle: 2",
            "ScaledBorderAndShadow: yes", "", "[V4+ Styles]",
            "Format: Name, Fontname, Fontsize, PrimaryColour, SecondaryColour, OutlineColour, BackColour, Bold, Italic, Underline, StrikeOut, ScaleX, ScaleY, Spacing, Angle, BorderStyle, Outline, Shadow, Alignment, MarginL, MarginR, MarginV, Encoding",
-           "Style: Cap,Vazirmatn,96,&H00FFFFFF,&H00FFFFFF,&H00000000,&H80000000,1,0,0,0,100,100,0,0,1,4.5,1.5,5,60,60,0,1",
+           f"Style: Cap,Vazirmatn,{size},&H00FFFFFF,&H00FFFFFF,&H00000000,&H80000000,1,0,0,0,100,100,0,0,1,4.5,1.5,5,60,60,0,1",
            "", "[Events]", "Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text"]
     for a, b, t in caps:
         yy = yh if (yh and a < HOOK_SECS) else y
@@ -50,18 +51,23 @@ for c in json.load(open(cpath, encoding="utf-8")):
     base = os.path.join(outdir, f"clip{c['id']}")
     fg, bg = COL[c.get("color", "bw")]
     style = c.get("style", "split")
-    hw, hh = render_hook(re.sub(EMO, "", c["hook"]), base + ".hook.png", size=60, max_w=900, single=True, fg=fg, bg=bg)
+    gold = c.get("hookstyle") == "gold"
+    if gold:
+        hw, hh = render_gold(c["hook"], base + ".hook.png")
+    else:
+        hw, hh = render_hook(re.sub(EMO, "", c["hook"]), base + ".hook.png", size=60, max_w=900, single=True, fg=fg, bg=bg)
     cx, cy, cw, ch = L["cam"]
     gx, gy, gw, gh = c.get("game", L["game"])
     if style == "split":
-        hook_y = HALF + 20 - hh // 2
+        hook_y = HALF - hh // 2 if gold else HALF + 20 - hh // 2
         cap_y = HALF
         fc = (f"[0:v]split[a][b];"
               f"[a]crop={cw}:{ch}:{cx}:{cy},scale={W}:{HALF}:flags=lanczos,cas=0.5,setsar=1[top];"
               f"[b]crop={gw}:{gh}:{gx}:{gy},scale={W}:{HALF}:flags=lanczos,setsar=1[bot];"
               f"[top][bot]vstack,fps=30[st];"
-              f"[1:v]format=rgba,fade=t=out:st={HOOK_SECS - 0.25}:d=0.25:alpha=1[hk];"
-              f"[st][hk]overlay=0:{hook_y}:enable='lt(t,{HOOK_SECS})':format=auto[v1]")
+              + ("[1:v]format=rgba[hk];[st][hk]overlay=0:" + str(hook_y) + ":format=auto[v1]" if gold else
+                 f"[1:v]format=rgba,fade=t=out:st={HOOK_SECS - 0.25}:d=0.25:alpha=1[hk];"
+                 f"[st][hk]overlay=0:{hook_y}:enable='lt(t,{HOOK_SECS})':format=auto[v1]"))
     else:
         wx, wy, ww, wh = L["wide"]
         vh = int(W * wh / ww) // 2 * 2
@@ -74,7 +80,11 @@ for c in json.load(open(cpath, encoding="utf-8")):
               f"[bg][vid]overlay=0:{vy}:shortest=1[st];[1:v]format=rgba[hk];"
               f"[st][hk]overlay=0:{hook_y}:format=auto[v1]")
     if c.get("caps"):
-        ass(c["caps"], cap_y, base + ".ass", (hook_y + hh + 70) if style == "split" else None)
+        if gold and style == "split":
+            cy = hook_y + hh + 55
+            ass(c["caps"], cy, base + ".ass", cy, size=68)
+        else:
+            ass(c["caps"], cap_y, base + ".ass", (hook_y + hh + 70) if style == "split" else None)
         fc += f";[v1]subtitles={base}.ass:fontsdir=/usr/share/fonts/truetype/vazirmatn,format=yuv420p[v]"
     else:
         fc += ";[v1]format=yuv420p[v]"

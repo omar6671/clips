@@ -8,7 +8,7 @@ from PIL import Image, ImageDraw, ImageFilter, ImageFont
 FONT = "/usr/share/fonts/truetype/notoarabic/ibm-plex-sans-arabic-arabic-600-normal.woff"
 QFONT = "/usr/share/fonts/opentype/inter/Inter-Black.otf"
 EMOJI = "/usr/share/fonts/truetype/noto/NotoColorEmoji.ttf"
-EMO = re.compile(r"\s*([\U0001F000-\U0001FAFF☀-➿⬀-⯿][️‍\U0001F000-\U0001FAFF]*)\s*")
+EMO = re.compile(r"\s*([\U0001F000-\U0001FAFF\u2600-\u27BF\u2B00-\u2BFF](?:\uFE0F|[\U0001F3FB-\U0001F3FF]|\u200D[\U0001F000-\U0001FAFF\u2600-\u27BF])*)\s*")
 YELLOW = (236, 204, 88, 255)
 EDGE = (0, 0, 0, 255)
 
