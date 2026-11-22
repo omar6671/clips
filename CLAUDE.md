@@ -43,7 +43,7 @@ Read this whole file before doing anything.
 
 ## Voiceover videos (gameplay/trailer + AI voice)
 - Voice: ElevenLabs **Abdullah Saadoun** (`t9akNmCDhz230CEXOYmn`), model `eleven_v4`, stability 0.42, similarity 0.74, style 0, no speed change (owner approved — don't change settings unless asked). Key is injected by the proxy (header `xi-api-key: proxy-injected`).
-- Topics that get views (from the top-30 study): hackers/anti-cheat news, new features, small details most players miss, game info/news, tips ("90% من اللعيبة…", "انتبه…", "عاجل ورسمياً…", "تخيّل…"). Story-style is OK too, but keep it punchy, not a list of facts.
+- Topics: anything interesting about the game that can get views. Examples only (not a fixed list): hackers/anti-cheat news, new features, small details most players miss, game info/news, tips. Openers seen in top videos: "90% من اللعيبة…", "انتبه…", "عاجل ورسمياً…", "تخيّل…". Story-style is OK too, but keep it punchy, not a list of facts.
 - Learn from the example videos but **NEVER copy their scripts or parts of them** — always write our own wording. Only state facts we can verify (trailers, official info).
 - Footage: mix shots from at least 2 different trailers (Drive `Trailers (for voiceover)`), cut every ~2–3 s to match the words, mute trailer audio (voice only), crop out burned-in subtitles. Hook in white box above the video for the whole clip, big white captions synced to the voice.
 
