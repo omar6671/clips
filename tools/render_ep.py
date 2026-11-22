@@ -68,18 +68,22 @@ for c in json.load(open(cpath, encoding="utf-8")):
     for s in reversed(shots):
         xexpr = f"if(between(t,{s['a']:.3f},{s['b']:.3f}),{xpos(s.get('ox', s['cx']))},{xexpr})"
     # gameplay window: 9:8, inside the usable area, zoom >= 1
-    uh = (GAME_BOT - GAME_TOP) * gh0 // 1080
+    gt, gb = c.get("gtop", GAME_TOP), c.get("gbot", GAME_BOT)   # usable rows (Kaydra: 180..1000)
+    uh = (gb - gt) * gh0 // 1080
     z = c.get("gzoom", 1.0)
     gch = int(uh / z) // 2 * 2
     gcw = int(gch * W / HALF) // 2 * 2
     right = c.get("gright", GAME_RIGHT) * gw0 // 1920
     gx = int(min(max(c.get("gcx", 0.45) * right - gcw / 2, 0), right - gcw)) // 2 * 2
-    top = GAME_TOP * gh0 // 1080
+    top = gt * gh0 // 1080
     gy = int(min(max(top + c.get("gcy", 0.5) * uh - gch / 2, top), top + uh - gch)) // 2 * 2
 
     fg, bg = COL[c.get("color", "bw")]
-    gold = c.get("hookstyle") == "gold"
-    if gold:   # gold quoted hook centred on the seam for the whole clip, captions just below it
+    gold = c.get("hookstyle") in ("gold", "box")
+    if c.get("hookstyle") == "box":   # white box hook centred on the seam for the whole clip (top-30 style)
+        hw, hh = render_hook(re.sub(EMO, "", c["hook"]), base + ".hook.png", size=58, max_w=900, single=True, fg=fg, bg=bg)
+        hook_y = HALF - hh // 2
+    elif gold:   # gold quoted hook centred on the seam for the whole clip, captions just below it
         hw, hh = render_gold(c["hook"], base + ".hook.png")
         hook_y = HALF - hh // 2
     else:
