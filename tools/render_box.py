@@ -51,8 +51,10 @@ for c in json.load(open(cpath, encoding="utf-8")):
     base = os.path.join(outdir, f"clip{c['id']}")
     fg, bg = COL[c.get("color", "bw")]
     style = c.get("style", "split")
-    gold = c.get("hookstyle") == "gold"
-    if gold:
+    gold = c.get("hookstyle") in ("gold", "box")   # both stay on the seam for the whole clip
+    if c.get("hookstyle") == "box":
+        hw, hh = render_hook(re.sub(EMO, "", c["hook"]), base + ".hook.png", size=58, max_w=900, single=True, fg=fg, bg=bg)
+    elif gold:
         hw, hh = render_gold(c["hook"], base + ".hook.png")
     else:
         hw, hh = render_hook(re.sub(EMO, "", c["hook"]), base + ".hook.png", size=60, max_w=900, single=True, fg=fg, bg=bg)
