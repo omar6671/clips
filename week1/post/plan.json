@@ -1,0 +1,134 @@
+[
+{
+"due": "2026-11-23T13:00",
+"path": "week1/vo_v02.mp4",
+"tt": "v02_tt.txt",
+"x": "v02_x.txt"
+},
+{
+"due": "2026-11-23T16:00",
+"path": "week1/pod_p2.mp4",
+"tt": "p2_tt.txt",
+"x": "p2_x.txt"
+},
+{
+"due": "2026-11-23T19:00",
+"path": "week1/wu_w1.mp4",
+"tt": "w1_tt.txt",
+"x": "w1_x.txt"
+},
+{
+"due": "2026-11-23T22:00",
+"path": "week1/vo_v07.mp4",
+"tt": "v07_tt.txt",
+"x": "v07_x.txt"
+},
+{
+"due": "2026-11-24T13:00",
+"path": "week1/vo_v05.mp4",
+"tt": "v05_tt.txt",
+"x": "v05_x.txt"
+},
+{
+"due": "2026-11-24T16:00",
+"path": "week1/wu_w2.mp4",
+"tt": "w2_tt.txt",
+"x": "w2_x.txt"
+},
+{
+"due": "2026-11-24T19:00",
+"path": "week1/pod_p1.mp4",
+"tt": "p1_tt.txt",
+"x": "p1_x.txt"
+},
+{
+"due": "2026-11-24T22:00",
+"path": "week1/wu_w3.mp4",
+"tt": "w3_tt.txt",
+"x": "w3_x.txt"
+},
+{
+"due": "2026-11-25T13:00",
+"path": "week1/vo_v03.mp4",
+"tt": "v03_tt.txt",
+"x": "v03_x.txt"
+},
+{
+"due": "2026-11-25T16:00",
+"path": "week1/vo_v10.mp4",
+"tt": "v10_tt.txt",
+"x": "v10_x.txt"
+},
+{
+"due": "2026-11-25T19:00",
+"path": "week1/wu_w4.mp4",
+"tt": "w4_tt.txt",
+"x": "w4_x.txt"
+},
+{
+"due": "2026-11-25T22:00",
+"path": "week1/pod_p4.mp4",
+"tt": "p4_tt.txt",
+"x": "p4_x.txt"
+},
+{
+"due": "2026-11-26T13:00",
+"path": "week1/vo_v09.mp4",
+"tt": "v09_tt.txt",
+"x": "v09_x.txt"
+},
+{
+"due": "2026-11-26T19:00",
+"path": "week1/pod_p3.mp4",
+"tt": "p3_tt.txt",
+"x": "p3_x.txt"
+},
+{
+"due": "2026-11-27T13:00",
+"path": "week1/vo_v06.mp4",
+"tt": "v06_tt.txt",
+"x": "v06_x.txt"
+},
+{
+"due": "2026-11-27T16:00",
+"path": "week1/pod_p5.mp4",
+"tt": "p5_tt.txt",
+"x": "p5_x.txt"
+},
+{
+"due": "2026-11-27T22:00",
+"path": "week1/vo_v08.mp4",
+"tt": "v08_tt.txt",
+"x": "v08_x.txt"
+},
+{
+"due": "2026-11-28T13:00",
+"path": "week1/vo_v12.mp4",
+"tt": "v12_tt.txt",
+"x": "v12_x.txt"
+},
+{
+"due": "2026-11-28T19:00",
+"path": "week1/pod_p6.mp4",
+"tt": "p6_tt.txt",
+"x": "p6_x.txt"
+},
+{
+"due": "2026-11-29T13:00",
+"path": "week1/vo_v04.mp4",
+"tt": "v04_tt.txt",
+"x": "v04_x.txt"
+},
+{
+"due": "2026-11-29T16:00",
+"path": "week1/vo_v11.mp4",
+"tt": "v11_tt.txt",
+"x": "v11_x.txt"
+},
+{
+"due": "2026-11-29T22:00",
+"path": "week1/pod_p7.mp4",
+"tt": "p7_tt.txt",
+"x": "p7_x.txt"
+}
+]
