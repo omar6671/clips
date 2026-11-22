@@ -24,6 +24,7 @@ Read this whole file before doing anything.
 - Clips from one source must not overlap.
 
 ## Hooks
+- Always write Abofalah as **أبو فله** (never ابو فلاح) in hooks, captions and posts.
 - Black text on a white rounded box (single solid box — no "stairs" of per-line boxes). `tools/hookimg.py` with `single=True`, size 60.
 - **Max 2 lines.** Write the best hook first, then fit it in ≤2 lines. Don't force 1 line. Break lines at natural phrase points: use `|` in the hook text to force the break.
 - Khaliji/Saudi dialect, with contextual emojis. Every clip gets a different hook; vary the structure (not all "X ما توقع Y…").
@@ -71,6 +72,7 @@ Read this whole file before doing anything.
 - `ep3/` campaign (MW4 challenge, 4K): 01–03,08,09 facecam-top split; 04,05,10–13 podcast/studio top + EP3 gameplay bottom. Many EP3 moments were already posted earlier — check Buffer history before reusing.
 - `ep1/` campaign (أوسمز podcast, 4K): split + Bashar gameplay + captions. Already-posted EP1 topics (skip): grocery street closed, London exam 20/20, mom & America, Joy Award, 8 months no income, university no friends, Saudi clubs goalkeeper offer, "people are مصالح", name meaning, closest YouTuber.
 - `tools/`: `render_ep.py` (podcast + gameplay split, shot-aware, captions, `gright` = gameplay right edge), `render_box.py` (fixed facecam box layouts), `render_film.py` (film layouts, pre-roll trim for sources that show black after a seek), `clipcaps.py` (large-v3 word-timed captions per clip; fix text by hand after), `hookimg.py` (colours: bw/wb/by/yb).
+- Bottom gameplay for EP1/EP2: also use the Kaydra stream (Drive content folder) — not only Bashar — so clips don't repeat the same footage.
 - Bashar gameplay is mostly dark in its campaign part; use bright windows only (brightness map) and vary zoom/crop per clip.
 - Whisper model: faster-whisper large-v3 (captions) / large-v3-turbo (full-source scan), int8 CPU; set `HF_HUB_DISABLE_XET=1`.
   Fonts: Vazirmatn (install from npm `vazirmatn` if missing), NotoColorEmoji. Python: faster-whisper, pillow (raqm), opencv-python-headless<5, numpy.
