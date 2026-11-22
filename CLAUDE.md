@@ -84,3 +84,8 @@ Read this whole file before doing anything.
 - Campaign EP1 (Osmz podcast) and EP3 challenge: many clips posted 2026-11-02…18 (see Buffer history). Old files deleted.
 - Old warm-up (Shonq suite vlog): 01, 03, 05 posted. Warm-up batch 03 (GTA 6): clip09_a posted; folder deleted 2026-11-20.
 - Scheduled 2026-11-20 (Morocco = UTC): 09:00 abofalah/clip07, 13:00 ep2/clip07, 18:00 bandareta/clip17 — each on TikTok + Instagram.
+
+## Weekly workflow (from 2026-11-23)
+- Batch one week at a time: campaign for the whole week (voiceovers prioritised), warm-ups only 3 days ahead (remind owner for fresh warm-up content).
+- Files: `weekN/` (vo_*, pod_*, wu_*), plan + captions + queue state in `weekN/post/`. Buffer allows only **10 scheduled posts per channel** → `tools/topup.py weekN/post/plan.json` fills the queue in date order; a daily scheduled task (10:37 Morocco) runs it and checks analytics.
+- Week 1 (Nov 23–29): 11 voiceovers + 7 podcast clips (Kaydra part2 gameplay, box hook) + 4 أبو فله GTA 6 warm-ups (Mon–Wed; wide full-frame layout because he switches between cam box and full-screen face).
