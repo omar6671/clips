@@ -32,7 +32,7 @@ Read this whole file before doing anything.
 - Only name people you are sure about.
 - Never on top of a face. Never touching the top of the screen (TikTok UI covers the top ~200 px).
 - English words/numbers (GTA 6, MW4) must read in the right order — hookimg.py handles this.
-- **Duration rule:** hook in the middle over video (split-screen seam) → show only the first ~4.5 s. Hook in empty black space above the video → keep it for the whole clip.
+- **Duration rule (updated 2026-11-22 from the top-30 study):** the hook stays for the **whole clip** in every layout, including the split-screen seam (top podcast clips keep the white box on the seam the whole time).
 
 ## Captions
 - **Only add captions when the owner asks, and only on the clips he names.**
@@ -60,7 +60,9 @@ Read this whole file before doing anything.
   - The Buffer API key is stored in the cloud environment (proxy injects it) — never put it in files.
 - Video must be a public URL: commit the mp4 here and use `https://raw.githubusercontent.com/omar6671/clips/main/<path>`.
 - Each video goes to TikTok and Instagram at the same time, with a different engaging Khaliji caption each time.
-- **Campaign (official) content:** tag `@callofdutyarabic` on TikTok, `@callofdutyara` on Instagram, and `#ad` on both — always.
+- Channels now: TikTok `6afac1e7ece6dfde5fe16b6a` + X `6b03121f8541f09ecb65a5cc` (Instagram removed). Every video goes to both.
+- **Campaign (official) content:** tag `@callofdutyarabic` + `#ad` on TikTok, `@CallofDutyARA` + `#ad` on X — always.
+- **Schedule:** 4 posts/day at 13:00, 16:00, 19:00, 22:00 Morocco, alternating days: (campaign, campaign, warm-up, campaign) then (campaign, warm-up, campaign, warm-up).
 - **Warm-up content:** NO tags, NO #ad, NO hashtags. Just the caption.
 - Space posts ~2+ hours; avoid 00:00–09:00 Morocco. Instagram flagged the account for **unoriginal content** after many near-identical clipped posts — prefer original/transformed content, fewer similar posts per day.
 
