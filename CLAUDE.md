@@ -41,6 +41,12 @@ Read this whole file before doing anything.
 - No gaps while someone is talking; correct garbled whisper text by hand, and drop words you can't verify.
 - Placement: split-screen → on the seam line (below the hook during the first 4.5 s); single video → near the bottom of the video.
 
+## Voiceover videos (gameplay/trailer + AI voice)
+- Voice: ElevenLabs **Abdullah Saadoun** (`t9akNmCDhz230CEXOYmn`), model `eleven_v4`, stability 0.42, similarity 0.74, style 0, no speed change (owner approved — don't change settings unless asked). Key is injected by the proxy (header `xi-api-key: proxy-injected`).
+- Topics that get views (from the top-30 study): hackers/anti-cheat news, new features, small details most players miss, game info/news, tips ("90% من اللعيبة…", "انتبه…", "عاجل ورسمياً…", "تخيّل…"). Story-style is OK too, but keep it punchy, not a list of facts.
+- Learn from the example videos but **NEVER copy their scripts or parts of them** — always write our own wording. Only state facts we can verify (trailers, official info).
+- Footage: mix shots from at least 2 different trailers (Drive `Trailers (for voiceover)`), cut every ~2–3 s to match the words, mute trailer audio (voice only), crop out burned-in subtitles. Hook in white box above the video for the whole clip, big white captions synced to the voice.
+
 ## Layouts (all 1080×1920, 30 fps, H.264 CRF 18, AAC 192k, loudnorm −14 LUFS, +faststart)
 - **Split screen (campaign / facecam streams):** facecam zoomed in on top (crop inside the cam border, no frame visible, sharpen with `cas`, don't overdo it), gameplay below (crop out burned-in subtitles), hook centred on the seam for 4.5 s. Crop must follow whoever is on cam. `render_cam.py`, `render_v6.py`, `render_split.py`.
 - **Normal / warm-up:** video zoomed in on black (or square face-tracked crop), hook in the black space above, whole clip. `render_single.py`, `render_v6.py` (version `_b`).
