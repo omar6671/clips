@@ -44,7 +44,7 @@ for it in sorted(plan, key=lambda x: x["due"]):
         print(key, "OK" if ok else r.strip()[:200])
         if ok:
             state[key] = True; count[k] += 1
-            open("/home/user/work/post/log.txt", "a").write(f'{it["due"]}Z {it["path"]} {svc} scheduled (topup)\n')
+            open(os.path.join(base, "log.txt"), "a").write(f'{it["due"]}Z {it["path"]} {svc} scheduled (topup)\n')
     if all(c >= LIMIT for c in count.values()): break
 json.dump(state, open(state_p, "w"), indent=0)
 print("queue:", count)
