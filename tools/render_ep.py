@@ -56,7 +56,7 @@ for c in json.load(open(cpath, encoding="utf-8")):
     if only and c["id"] not in only:
         continue
     s0, dur = c["start"], c["end"] - c["start"]
-    assert 15 <= dur <= 60, c
+    assert 8 <= dur <= 140, c
     base = os.path.join(outdir, f"clip{c['id']}")
     if os.path.exists(base + ".shots.json"):
         shots = json.load(open(base + ".shots.json"))
@@ -79,8 +79,11 @@ for c in json.load(open(cpath, encoding="utf-8")):
     gy = int(min(max(top + c.get("gcy", 0.5) * uh - gch / 2, top), top + uh - gch)) // 2 * 2
 
     fg, bg = COL[c.get("color", "bw")]
+    nohook = c.get("hookstyle") == "none"
     gold = c.get("hookstyle") in ("gold", "box")
-    if c.get("hookstyle") == "box":   # white box hook centred on the seam for the whole clip (top-30 style)
+    if nohook:   # no on-screen text at all (X style)
+        from PIL import Image; Image.new("RGBA", (W, 2), (0, 0, 0, 0)).save(base + ".hook.png"); hh = 2; hook_y = HALF
+    elif c.get("hookstyle") == "box":   # white box hook centred on the seam for the whole clip (top-30 style)
         hw, hh = render_hook(re.sub(EMO, "", c["hook"]), base + ".hook.png", size=58, max_w=900, single=True, fg=fg, bg=bg)
         hook_y = HALF - hh // 2
     elif gold:   # gold quoted hook centred on the seam for the whole clip, captions just below it
