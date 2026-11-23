@@ -63,7 +63,7 @@ Read this whole file before doing anything.
 - Channels now: TikTok `6afac1e7ece6dfde5fe16b6a` + X `6b03121f8541f09ecb65a5cc` (Instagram removed). Every video goes to both.
 - **Campaign (official) content:** tag `@callofdutyarabic` on TikTok, `@CallofDutyARA` on X, then hashtags with **#ad always first**: TikTok `#ad #كود #mw4 #callofduty #اكسبلور` (+ topic tag e.g. #اوسمز #تي_ام_فيصل #DMZ #وارزون), X `#ad #كود #MW4` (+ topic tag). Always, on every campaign post.
 - **Schedule:** 4 posts/day at 13:00, 16:00, 19:00, 22:00 Morocco, alternating days: (campaign, campaign, warm-up, campaign) then (campaign, warm-up, campaign, warm-up).
-- **Warm-up content:** NO tags, NO #ad, NO hashtags. Just the caption.
+- **Warm-up content:** NO #ad and NO tagging anyone — but DO add normal relevant hashtags (e.g. #gta6 #أبو_فله #العاب #اكسبلور).
 - Space posts ~2+ hours; avoid 00:00–09:00 Morocco. Instagram flagged the account for **unoriginal content** after many near-identical clipped posts — prefer original/transformed content, fewer similar posts per day.
 
 ## Repo layout
