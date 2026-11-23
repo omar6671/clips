@@ -74,6 +74,8 @@ Read this whole file before doing anything.
 - `ep3/` campaign (MW4 challenge, 4K): 01–03,08,09 facecam-top split; 04,05,10–13 podcast/studio top + EP3 gameplay bottom. Many EP3 moments were already posted earlier — check Buffer history before reusing.
 - `ep1/` campaign (أوسمز podcast, 4K): split + Bashar gameplay + captions. Already-posted EP1 topics (skip): grocery street closed, London exam 20/20, mom & America, Joy Award, 8 months no income, university no friends, Saudi clubs goalkeeper offer, "people are مصالح", name meaning, closest YouTuber.
 - `tools/`: `render_ep.py` (podcast + gameplay split, shot-aware, captions, `gright` = gameplay right edge), `render_box.py` (fixed facecam box layouts), `render_film.py` (film layouts, pre-roll trim for sources that show black after a seek), `clipcaps.py` (large-v3 word-timed captions per clip; fix text by hand after), `hookimg.py` (colours: bw/wb/by/yb).
+- **Bottom gameplay: always zoom in (gzoom ~1.2, gright left of the cam box) so the streamer's face never shows** — a bit of the box edge is OK. Zoom only; never blur or cut.
+- X-only clips (`xonly/`): top-X style = same podcast moment, different gameplay, often no hook (`hookstyle: none`) — the post text is the hook.
 - Bottom gameplay for EP1/EP2: also use the Kaydra stream (Drive content folder) — not only Bashar — so clips don't repeat the same footage.
 - Bashar gameplay is mostly dark in its campaign part; use bright windows only (brightness map) and vary zoom/crop per clip.
 - Whisper model: faster-whisper large-v3 (captions) / large-v3-turbo (full-source scan), int8 CPU; set `HF_HUB_DISABLE_XET=1`.
