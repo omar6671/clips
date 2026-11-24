@@ -130,5 +130,40 @@
 "path": "week1/pod_p7.mp4",
 "tt": "p7_tt.txt",
 "x": "p7_x.txt"
+},
+{
+"due": "2026-11-26T16:00",
+"path": "week1/vo_n4.mp4",
+"tt": "n4_tt.txt",
+"x": "n4_x.txt",
+"ig": "n4_ig.txt"
+},
+{
+"due": "2026-11-26T22:00",
+"path": "week1/vo_n1.mp4",
+"tt": "n1_tt.txt",
+"x": "n1_x.txt",
+"ig": "n1_ig.txt"
+},
+{
+"due": "2026-11-27T19:00",
+"path": "week1/vo_n3.mp4",
+"tt": "n3_tt.txt",
+"x": "n3_x.txt",
+"ig": "n3_ig.txt"
+},
+{
+"due": "2026-11-28T16:00",
+"path": "week1/vo_n6.mp4",
+"tt": "n6_tt.txt",
+"x": "n6_x.txt",
+"ig": "n6_ig.txt"
+},
+{
+"due": "2026-11-28T22:00",
+"path": "week1/vo_n5.mp4",
+"tt": "n5_tt.txt",
+"x": "n5_x.txt",
+"ig": "n5_ig.txt"
 }
 ]

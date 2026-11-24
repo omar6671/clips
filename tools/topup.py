@@ -7,7 +7,7 @@ import json, os, subprocess, sys, datetime
 
 BRANCH = "claude/affectionate-hawking-iom3sr"
 RAW = f"https://raw.githubusercontent.com/omar6671/clips/{BRANCH}/"
-CH = {"tt": ("6afac1e7ece6dfde5fe16b6a", "tiktok"), "x": ("6b03121f8541f09ecb65a5cc", "twitter")}
+CH = {"tt": ("6afac1e7ece6dfde5fe16b6a", "tiktok"), "x": ("6b03121f8541f09ecb65a5cc", "twitter"), "ig": ("6b05df788541f09ecb8f0853", "instagram")}
 LIMIT = 10
 plan_p = sys.argv[1]; dry = "--dry" in sys.argv
 base = os.path.dirname(os.path.abspath(plan_p))
@@ -23,7 +23,7 @@ def gql(q):
 
 
 d = gql('query{posts(first:100,input:{organizationId:"6afac0182fbcba384e4540d0",filter:{channelIds:["%s","%s"],status:[scheduled]}})'
-        '{edges{node{channelId}}}}' % (CH["tt"][0], CH["x"][0]))
+        '{edges{node{channelId}}}}' % (CH["tt"][0], CH["x"][0]) .replace('"]', '","%s"]' % CH["ig"][0], 1))
 count = {k: 0 for k in CH}
 for e in d["data"]["posts"]["edges"]:
     for k, (cid, _) in CH.items():
@@ -34,6 +34,7 @@ for it in sorted(plan, key=lambda x: x["due"]):
     if not os.path.exists(os.path.join("/home/user/clips", it["path"])):
         print("not ready (skipped, later items wait):", it["path"]); break
     for k, (cid, svc) in CH.items():
+        if k not in it: continue
         key = f'{it["due"]}|{it["path"]}|{k}'
         if state.get(key): continue
         if count[k] >= LIMIT: continue
@@ -45,6 +46,6 @@ for it in sorted(plan, key=lambda x: x["due"]):
         if ok:
             state[key] = True; count[k] += 1
             open(os.path.join(base, "log.txt"), "a").write(f'{it["due"]}Z {it["path"]} {svc} scheduled (topup)\n')
-    if all(c >= LIMIT for c in count.values()): break
+    if all(count[k] >= LIMIT for k in ("tt", "x")): break
 json.dump(state, open(state_p, "w"), indent=0)
 print("queue:", count)
