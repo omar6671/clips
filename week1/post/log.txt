@@ -41,3 +41,11 @@ now s1 tt+x+ig
 2026-11-24T21:30:00Z s2 tt+x+ig
 2026-11-24T23:30:00Z s3 tt+x+ig
 2026-11-25T09:15:00Z vx tt+x+ig
+2026-11-26T16:00Z week1/vo_n4.mp4 tiktok scheduled (topup)
+2026-11-26T16:00Z week1/vo_n4.mp4 twitter scheduled (topup)
+2026-11-26T16:00Z week1/vo_n4.mp4 instagram scheduled (topup)
+2026-11-26T22:00Z week1/vo_n1.mp4 tiktok scheduled (topup)
+2026-11-26T22:00Z week1/vo_n1.mp4 twitter scheduled (topup)
+2026-11-26T22:00Z week1/vo_n1.mp4 instagram scheduled (topup)
+2026-11-27T13:00Z week1/vo_v06.mp4 tiktok scheduled (topup)
+2026-11-27T13:00Z week1/vo_v06.mp4 twitter scheduled (topup)

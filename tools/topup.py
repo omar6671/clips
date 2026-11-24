@@ -22,8 +22,8 @@ def gql(q):
     return json.loads(r.stdout)
 
 
-d = gql('query{posts(first:100,input:{organizationId:"6afac0182fbcba384e4540d0",filter:{channelIds:["%s","%s"],status:[scheduled]}})'
-        '{edges{node{channelId}}}}' % (CH["tt"][0], CH["x"][0]) .replace('"]', '","%s"]' % CH["ig"][0], 1))
+ids = ",".join('"%s"' % c for c, _ in CH.values())
+d = gql('query{posts(first:100,input:{organizationId:"6afac0182fbcba384e4540d0",filter:{channelIds:[%s],status:[scheduled]}}){edges{node{channelId}}}}' % ids)
 count = {k: 0 for k in CH}
 for e in d["data"]["posts"]["edges"]:
     for k, (cid, _) in CH.items():
