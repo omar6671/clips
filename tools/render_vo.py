@@ -70,7 +70,7 @@ for j, s in enumerate(shots):
                   f"trim=duration={d:.3f},setpts=PTS-STARTPTS[s{j}]")
     lab.append(f"[s{j}]")
 n = len(shots)
-hw, hh = render_hook(re.sub(r"\s+(?=[\U0001F000-\U0001FAFF☀-➿])", "", hook), K + ".hook.png", size=60, max_w=900, single=True)
+hw, hh = render_hook(re.sub(r"\s+(?=[\U0001F000-\U0001FAFF☀-➿])", "", hook), K + ".hook.png", size=58, max_w=900, single=True, gap=-28)
 fc.append("".join(lab) + f"concat=n={n}:v=1:a=0[vid]")
 fc.append(f"color=c=black:s={W}x{H}:r=30:d={dur:.2f}[bg];[bg][vid]overlay=0:{VY}:shortest=1[b1]")
 fc.append(f"[{n}:v]format=rgba[hk];[b1][hk]overlay=0:{VY - 30 - hh}:format=auto[b2]")
