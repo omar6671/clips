@@ -88,6 +88,7 @@ Read this whole file before doing anything.
 - Scheduled 2026-11-20 (Morocco = UTC): 09:00 abofalah/clip07, 13:00 ep2/clip07, 18:00 bandareta/clip17 — each on TikTok + Instagram.
 
 ## Weekly workflow (from 2026-11-23)
+- Mix (from 2026-11-24): ~75% voiceovers, ~25% podcast (No Scope) clips + warm-ups. Voiceover scripts must be built for retention: open-question first line, payoff held to the end, a new beat every 3-4 s, ~20 s, loop ending.
 - Batch one week at a time: campaign for the whole week (voiceovers prioritised), warm-ups only 3 days ahead (remind owner for fresh warm-up content).
 - Files: `weekN/` (vo_*, pod_*, wu_*), plan + captions + queue state in `weekN/post/`. Buffer allows only **10 scheduled posts per channel** → `tools/topup.py weekN/post/plan.json` fills the queue in date order; a daily scheduled task (10:37 Morocco) runs it and checks analytics.
 - Week 1 (Nov 23–29): 11 voiceovers + 7 podcast clips (Kaydra part2 gameplay, box hook) + 4 أبو فله GTA 6 warm-ups (Mon–Wed; wide full-frame layout because he switches between cam box and full-screen face).
