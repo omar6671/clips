@@ -37,3 +37,6 @@
 2026-11-26T13:00Z week1/vo_v09.mp4 twitter scheduled (topup)
 2026-11-26T19:00Z week1/pod_p3.mp4 tiktok scheduled (topup)
 2026-11-26T19:00Z week1/pod_p3.mp4 twitter scheduled (topup)
+now s1 tt+x+ig
+2026-11-24T21:30:00Z s2 tt+x+ig
+2026-11-24T23:30:00Z s3 tt+x+ig

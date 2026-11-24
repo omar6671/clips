@@ -60,7 +60,7 @@ Read this whole file before doing anything.
   - The Buffer API key is stored in the cloud environment (proxy injects it) — never put it in files.
 - Video must be a public URL: commit the mp4 here and use `https://raw.githubusercontent.com/omar6671/clips/main/<path>`.
 - Each video goes to TikTok and Instagram at the same time, with a different engaging Khaliji caption each time.
-- Channels now: TikTok `6afac1e7ece6dfde5fe16b6a` + X `6b03121f8541f09ecb65a5cc` (Instagram removed). Every video goes to both.
+- Channels now: TikTok `6afac1e7ece6dfde5fe16b6a` + X `6b03121f8541f09ecb65a5cc` + Instagram `6b05df788541f09ecb8f0853` (re-added 2026-11-24; tag `@callofdutyara` + #ad first on campaign posts).
 - **Campaign (official) content:** tag `@callofdutyarabic` on TikTok, `@CallofDutyARA` on X, then hashtags with **#ad always first**: TikTok `#ad #كود #mw4 #callofduty #اكسبلور` (+ topic tag e.g. #اوسمز #تي_ام_فيصل #DMZ #وارزون), X `#ad #كود #MW4` (+ topic tag). Always, on every campaign post.
 - **Schedule:** 4 posts/day at 13:00, 16:00, 19:00, 22:00 Morocco, alternating days: (campaign, campaign, warm-up, campaign) then (campaign, warm-up, campaign, warm-up).
 - **Warm-up content:** NO #ad and NO tagging anyone — but DO add normal relevant hashtags (e.g. #gta6 #أبو_فله #العاب #اكسبلور).
