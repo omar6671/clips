@@ -84,7 +84,7 @@ for c in json.load(open(cpath, encoding="utf-8")):
     if nohook:   # no on-screen text at all (X style)
         from PIL import Image; Image.new("RGBA", (W, 2), (0, 0, 0, 0)).save(base + ".hook.png"); hh = 2; hook_y = HALF
     elif c.get("hookstyle") == "box":   # white box hook centred on the seam for the whole clip (top-30 style)
-        hw, hh = render_hook(re.sub(EMO, "", c["hook"]), base + ".hook.png", size=58, max_w=900, single=True, fg=fg, bg=bg)
+        hw, hh = render_hook(re.sub(EMO, "", c["hook"]), base + ".hook.png", size=c.get("hooksize", 58), max_w=c.get("hookmaxw", 900), single=True, fg=fg, bg=bg)
         hook_y = HALF - hh // 2
     elif gold:   # gold quoted hook centred on the seam for the whole clip, captions just below it
         hw, hh = render_gold(c["hook"], base + ".hook.png")
