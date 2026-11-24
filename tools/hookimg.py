@@ -24,7 +24,7 @@ def tokens(text):
     return out[:-1]
 
 
-def render(text, path, width=1080, max_w=940, size=68, pad_x=30, pad_y=14, radius=22, single=False, fg=(0, 0, 0, 255), bg=(255, 255, 255, 255)):
+def render(text, path, width=1080, max_w=940, size=68, pad_x=30, pad_y=14, radius=22, single=False, fg=(0, 0, 0, 255), bg=(255, 255, 255, 255), gap=-6):
     font = ImageFont.truetype(FONT, size, layout_engine=ImageFont.Layout.RAQM)
     efont = ImageFont.truetype(EMOJI, 109)
     esz = int(size * 1.05)
@@ -76,7 +76,6 @@ def render(text, path, width=1080, max_w=940, size=68, pad_x=30, pad_y=14, radiu
         if best: lines = [allw[:best], allw[best:]]
 
     row_h = line_h + 2 * pad_y
-    gap = -6  # boxes slightly overlap so they read as one block
     H = len(lines) * row_h + (len(lines) - 1) * gap + 8
     img = Image.new("RGBA", (width, H), (0, 0, 0, 0))
     d = ImageDraw.Draw(img)
