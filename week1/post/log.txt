@@ -51,3 +51,4 @@ now s1 tt+x+ig
 2026-11-27T13:00Z week1/vo_v06.mp4 twitter scheduled (topup)
 2026-11-27T16:00Z week1/pod_p5.mp4 tiktok scheduled (topup)
 2026-11-27T16:00Z week1/pod_p5.mp4 twitter scheduled (topup)
+2026-11-26 n1g now + n4g 16:00 tt+x+ig (replaced n1/n4)
